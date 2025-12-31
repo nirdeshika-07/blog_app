@@ -12,6 +12,9 @@ class BlogTheme{
 
   static final darkThemeMode = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: BlogPallete.backgroundColor,
+    appBarTheme:const AppBarTheme(
+      backgroundColor: BlogPallete.backgroundColor
+    ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(27),
       enabledBorder: _border(),
