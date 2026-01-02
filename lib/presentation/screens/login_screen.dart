@@ -56,7 +56,12 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 15,
               ),
-              const AuthGradientButton(textValue: 'Sign In',),
+              AuthGradientButton(
+                textValue: 'Sign In',
+                onPressed: (){
+
+                },
+              ),
               const SizedBox(
                 height: 15,
               ),
