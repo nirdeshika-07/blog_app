@@ -34,7 +34,7 @@ migrate_working_dir/
 /build/
 
 #secret
-/lib/core/secrets/*
+lib/core/secrets/*
 
 # Symbolication related
 app.*.symbols
