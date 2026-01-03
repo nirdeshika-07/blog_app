@@ -1,13 +1,14 @@
 import 'package:blog_app/core/reusable/widgets/loading.dart';
 import 'package:blog_app/core/theme/blog_pallete.dart';
 import 'package:blog_app/core/utils/show_snackbar.dart';
-import 'package:blog_app/presentation/bloc/blog_auth_bloc.dart';
-import 'package:blog_app/presentation/screens/home_screen.dart';
-import 'package:blog_app/presentation/screens/signup_screen.dart';
-import 'package:blog_app/presentation/widgets/auth_field.dart';
-import 'package:blog_app/presentation/widgets/auth_gradient_button.dart';
+import 'package:blog_app/features/auth/presentation/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/blog_auth_bloc.dart';
+import '../widgets/auth_field.dart';
+import '../widgets/auth_gradient_button.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -84,8 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 password: passwordController.text.trim()
                             )
                         );
+                        // Navigator.push(context, LoginScreen.route1());
                       }
-                      Navigator.push(context, LoginScreen.route1());
+
                     },
                   ),
                   const SizedBox(

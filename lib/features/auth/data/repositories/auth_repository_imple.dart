@@ -1,10 +1,11 @@
 import 'package:blog_app/core/error/exception.dart';
-import 'package:blog_app/data/data_sources/auth_supabase_data_source.dart';
-import 'package:blog_app/domain/entities/user.dart';
-import 'package:blog_app/domain/repositories/auth_repository.dart';
+import '../../../../core/error/failures.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../core/error/failures.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/repositories/auth_repository.dart';
+import '../data_sources/auth_supabase_data_source.dart';
+
 
 class AuthRepositoryImple implements AuthRepository{
   final AuthSupabaseDataSource supabaseDataSource;
@@ -29,6 +30,19 @@ class AuthRepositoryImple implements AuthRepository{
       ),
     );
   }
+  @override
+  Future<Either<Failure, User>> currentUser() async{
+    try{
+      final user = await supabaseDataSource.getCurrentUserData();
+      if(user == null){
+        return left(Failure('User is not logged in'));
+      }
+      return right(user);
+    }on ServerException catch(e){
+      return left(Failure(e.message));
+    }
+  }
+
   Future<Either<Failure, User>> _getUser(
       Future<User> Function() fn
       ) async {

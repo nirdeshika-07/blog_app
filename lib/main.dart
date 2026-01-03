@@ -1,9 +1,10 @@
 import 'package:blog_app/core/theme/blog_theme.dart';
 import 'package:blog_app/init_dependencies.dart';
-import 'package:blog_app/presentation/bloc/blog_auth_bloc.dart';
-import 'package:blog_app/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'features/auth/presentation/bloc/blog_auth_bloc.dart';
+import 'features/auth/presentation/screens/login_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +18,19 @@ void main() async{
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<BlogAuthBloc>().add(BlogAuthIsUserSignedIn());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,7 @@ class MyApp extends StatelessWidget {
       // ThemeData(
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       // ),
-      home: LoginScreen(),
+      home: const LoginScreen(),
     );
   }
 }

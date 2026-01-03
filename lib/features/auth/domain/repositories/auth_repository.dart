@@ -1,6 +1,7 @@
 import 'package:blog_app/core/error/failures.dart';
-import 'package:blog_app/domain/entities/user.dart';
 import 'package:fpdart/fpdart.dart';
+
+import '../entities/user.dart';
 
 //To define a set of methods that a class must implement
 abstract interface class AuthRepository{
@@ -13,5 +14,6 @@ abstract interface class AuthRepository{
     required String email,
     required String password,
   });
+  Future<Either<Failure, User>> currentUser();
 }
 

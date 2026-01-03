@@ -1,8 +1,9 @@
 import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/core/usecase/use_case.dart';
-import 'package:blog_app/domain/entities/user.dart';
-import 'package:blog_app/domain/repositories/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
+
+import '../entities/user.dart';
+import '../repositories/auth_repository.dart';
 
 class UserSignIn implements UseCase<User, UserSignInParams>{
   final AuthRepository authRepository;

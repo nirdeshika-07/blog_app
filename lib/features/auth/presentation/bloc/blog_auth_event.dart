@@ -22,3 +22,4 @@ final class BlogAuthSignIn extends BlogAuthEvent{
     required this.password
   });
 }
+final class BlogAuthIsUserSignedIn extends BlogAuthEvent{}
