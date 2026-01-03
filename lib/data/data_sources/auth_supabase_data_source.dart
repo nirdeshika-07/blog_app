@@ -1,13 +1,14 @@
 import 'package:blog_app/core/error/exception.dart';
+import 'package:blog_app/data/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthSupabaseDataSource{
-  Future<String> signUpWithEmailPassword({
+  Future<UserModel> signUpWithEmailPassword({
     required String name,
     required String email,
     required String password
   });
-  Future<String> signInWithEmailPassword({
+  Future<UserModel> signInWithEmailPassword({
     required String email,
     required String password
   });
@@ -18,7 +19,7 @@ class AuthSupabaseDataSourceImple implements AuthSupabaseDataSource{
   AuthSupabaseDataSourceImple(this.supabaseClient);
 
   @override
-  Future<String> signUpWithEmailPassword({
+  Future<UserModel> signUpWithEmailPassword({
     required String name,
     required String email,
     required String password
@@ -31,13 +32,13 @@ class AuthSupabaseDataSourceImple implements AuthSupabaseDataSource{
       if(response.user == null){
         throw const ServerException('User is null');
       }
-      return response.user!.id;
+      return UserModel.fromJson(response.user!.toJson());
     }catch(e){
       throw ServerException('Unexpected SignUp error: ${e.toString()}');
     }
   }
   @override
-  Future<String> signInWithEmailPassword({
+  Future<UserModel> signInWithEmailPassword({
     required String email,
     required String password
   }){

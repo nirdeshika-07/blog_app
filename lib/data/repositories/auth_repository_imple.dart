@@ -1,5 +1,6 @@
 import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/data/data_sources/auth_supabase_data_source.dart';
+import 'package:blog_app/domain/entities/user.dart';
 import 'package:blog_app/domain/repositories/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -10,21 +11,21 @@ class AuthRepositoryImple implements AuthRepository{
   const AuthRepositoryImple(this.supabaseDataSource);
 
   @override
-  Future<Either<Failure, String>> signUpWithEmailPassword({required String name, required String email, required String password}) async{
+  Future<Either<Failure, User>> signUpWithEmailPassword({required String name, required String email, required String password}) async{
     try{
-      final userId = await supabaseDataSource.signUpWithEmailPassword(
+      final user = await supabaseDataSource.signUpWithEmailPassword(
           name: name,
           email: email,
           password: password
       );
-      return right(userId);
+      return right(user);
     } on ServerException catch(e){
       return left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, String>> signInWithEmailPassword({required String email, required String password}) {
+  Future<Either<Failure, User>> signInWithEmailPassword({required String email, required String password}) {
     throw UnimplementedError();
   }
 

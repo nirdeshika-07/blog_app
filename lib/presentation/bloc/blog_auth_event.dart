@@ -13,3 +13,12 @@ final class BlogAuthSignUp extends BlogAuthEvent{
     required this.name,
   });
 }
+final class BlogAuthSignIn extends BlogAuthEvent{
+  final String email;
+  final String password;
+
+  BlogAuthSignIn({
+    required this.email,
+    required this.password
+  });
+}

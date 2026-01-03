@@ -8,7 +8,7 @@ sealed class BlogAuthStates{
 final class AuthInitial extends BlogAuthStates{}
 final class AuthLoading extends BlogAuthStates{}
 final class AuthSuccess extends BlogAuthStates{
-  final String uid;
+  final User uid;
   const AuthSuccess(this.uid);
 }
 final class AuthFailure extends BlogAuthStates{
