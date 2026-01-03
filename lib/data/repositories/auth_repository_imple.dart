@@ -12,21 +12,31 @@ class AuthRepositoryImple implements AuthRepository{
 
   @override
   Future<Either<Failure, User>> signUpWithEmailPassword({required String name, required String email, required String password}) async{
-    try{
-      final user = await supabaseDataSource.signUpWithEmailPassword(
+     return _getUser(() async => await supabaseDataSource.signUpWithEmailPassword(
           name: name,
           email: email,
           password: password
+        ),
       );
-      return right(user);
-    } on ServerException catch(e){
-      return left(Failure(e.toString()));
-    }
   }
 
   @override
-  Future<Either<Failure, User>> signInWithEmailPassword({required String email, required String password}) {
-    throw UnimplementedError();
+  Future<Either<Failure, User>> signInWithEmailPassword({required String email, required String password}) async{
+      return _getUser(() async=>
+          await supabaseDataSource.signInWithEmailPassword(
+          email: email,
+          password: password
+      ),
+    );
   }
-
+  Future<Either<Failure, User>> _getUser(
+      Future<User> Function() fn
+      ) async {
+    try {
+      final user = await fn();
+      return right(user);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
 }

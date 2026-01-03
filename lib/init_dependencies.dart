@@ -1,6 +1,7 @@
 import 'package:blog_app/data/data_sources/auth_supabase_data_source.dart';
 import 'package:blog_app/data/repositories/auth_repository_imple.dart';
 import 'package:blog_app/domain/repositories/auth_repository.dart';
+import 'package:blog_app/domain/use_cases/user_login.dart';
 import 'package:blog_app/domain/use_cases/user_signup.dart';
 import 'package:blog_app/presentation/bloc/blog_auth_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -30,7 +31,11 @@ void _initAuth() {
   serviceLocator.registerFactory(() => UserSignUp(
       serviceLocator(),
   ));
+  serviceLocator.registerFactory(() => UserSignIn(
+      serviceLocator(),
+  ));
   serviceLocator.registerLazySingleton(() => BlogAuthBloc(
       userSignUp: serviceLocator(),
+    userSignIn: serviceLocator()
   ));
 }
