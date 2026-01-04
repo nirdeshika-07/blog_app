@@ -8,3 +8,5 @@ class User{
     required this.name,
   });
 }
+
+//Core cannot depend on other features but other features can depend on the core

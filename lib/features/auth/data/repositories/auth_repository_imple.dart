@@ -2,7 +2,7 @@ import 'package:blog_app/core/error/exception.dart';
 import '../../../../core/error/failures.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../domain/entities/user.dart';
+import '../../../../core/reusable/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/auth_supabase_data_source.dart';
 

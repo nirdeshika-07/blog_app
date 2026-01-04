@@ -15,6 +15,11 @@ class BlogTheme{
     appBarTheme:const AppBarTheme(
       backgroundColor: BlogPallete.backgroundColor
     ),
+    chipTheme: ChipThemeData(
+      color: WidgetStatePropertyAll(BlogPallete.backgroundColor),
+          selectedColor: BlogPallete.gradient1,
+      side: BorderSide.none
+    ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(27),
       enabledBorder: _border(),

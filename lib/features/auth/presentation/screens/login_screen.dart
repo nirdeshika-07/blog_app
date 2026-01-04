@@ -8,14 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/blog_auth_bloc.dart';
 import '../widgets/auth_field.dart';
 import '../widgets/auth_gradient_button.dart';
-import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static route() => MaterialPageRoute(
       builder: (context) => const SignupScreen()
-  );
-  static route1() => MaterialPageRoute(
-      builder: (context) => const MyHomePage(title: "Success")
   );
   const LoginScreen({super.key});
 

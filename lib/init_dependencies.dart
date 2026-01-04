@@ -1,3 +1,4 @@
+import 'package:blog_app/core/reusable/cubits/blog_user/blog_user_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -19,6 +20,9 @@ Future<void> initDependencies() async {
     anonKey: SupabaseSecret.anonKey,
   );
   serviceLocator.registerLazySingleton(() => supabase.client);
+
+  //Service Locator of Core
+  serviceLocator.registerLazySingleton(() => BlogUserCubit());
 }
 
 void _initAuth() {
@@ -45,6 +49,7 @@ void _initAuth() {
   ..registerLazySingleton(() => BlogAuthBloc(
       userSignUp: serviceLocator(),
     userSignIn: serviceLocator(),
-    currentUser: serviceLocator()
+    currentUser: serviceLocator(),
+    blogUserCubit: serviceLocator()
   ));
 }

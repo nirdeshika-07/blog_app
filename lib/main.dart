@@ -1,4 +1,6 @@
+import 'package:blog_app/core/reusable/cubits/blog_user/blog_user_cubit.dart';
 import 'package:blog_app/core/theme/blog_theme.dart';
+import 'package:blog_app/features/blog/data/presentation/screens/blog_screen.dart';
 import 'package:blog_app/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +14,7 @@ void main() async{
   runApp(
       MultiBlocProvider(
     providers: [
+      BlocProvider(create: (_) => serviceLocator<BlogUserCubit>()),
       BlocProvider(create: (_) => serviceLocator<BlogAuthBloc>())
     ],
       child: const MyApp()
@@ -41,7 +44,19 @@ class _MyAppState extends State<MyApp> {
       // ThemeData(
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       // ),
-      home: const LoginScreen(),
+      home: BlocSelector<BlogUserCubit, BlogUserState, bool>(
+        selector: (state){
+          return state is BlogUserSignedIn;
+        },
+        builder: (context, isSignedIn) {
+          if(isSignedIn){
+            return const BlogScreen();
+          }
+          else{
+            return const LoginScreen();
+          }
+        }
+      ),
     );
   }
 }
