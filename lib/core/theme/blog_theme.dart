@@ -22,8 +22,10 @@ class BlogTheme{
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(27),
+        border: _border(),
       enabledBorder: _border(),
-        focusedBorder: _border(BlogPallete.gradient2)
+        focusedBorder: _border(BlogPallete.gradient2),
+        errorBorder: _border(BlogPallete.errorColor),
     )
   );
 }

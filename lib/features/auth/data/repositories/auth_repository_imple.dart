@@ -1,15 +1,22 @@
 import 'package:blog_app/core/error/exception.dart';
+import '../../../../core/constant/constant.dart';
 import '../../../../core/error/failures.dart';
 import 'package:fpdart/fpdart.dart';
 
+import '../../../../core/network/connection_checker.dart';
 import '../../../../core/reusable/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/auth_supabase_data_source.dart';
+import '../models/user_model.dart';
 
 
 class AuthRepositoryImple implements AuthRepository{
   final AuthSupabaseDataSource supabaseDataSource;
-  const AuthRepositoryImple(this.supabaseDataSource);
+  final ConnectionChecker connectionChecker;
+  const AuthRepositoryImple(
+      this.supabaseDataSource,
+      this.connectionChecker,
+      );
 
   @override
   Future<Either<Failure, User>> signUpWithEmailPassword({required String name, required String email, required String password}) async{
@@ -33,6 +40,21 @@ class AuthRepositoryImple implements AuthRepository{
   @override
   Future<Either<Failure, User>> currentUser() async{
     try{
+      if (!await (connectionChecker.isConnected)) {
+        final session = supabaseDataSource.currentUserSession;
+
+        if (session == null) {
+          return left(Failure('User not logged in!'));
+        }
+
+        return right(
+          UserModel(
+            id: session.user.id,
+            email: session.user.email ?? '',
+            name: '',
+          ),
+        );
+      }
       final user = await supabaseDataSource.getCurrentUserData();
       if(user == null){
         return left(Failure('User is not logged in'));
@@ -47,6 +69,9 @@ class AuthRepositoryImple implements AuthRepository{
       Future<User> Function() fn
       ) async {
     try {
+      if (!await (connectionChecker.isConnected)) {
+        return left(Failure(Constant.noConnectionErrorMessage));
+      }
       final user = await fn();
       return right(user);
     } on ServerException catch (e) {

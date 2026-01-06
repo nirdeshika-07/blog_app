@@ -42,6 +42,8 @@ class AuthSupabaseDataSourceImple implements AuthSupabaseDataSource{
       return UserModel.fromJson(response.user!.toJson()).copyWith(
           email: currentUserSession!.user.email
       );
+    }on AuthException catch (e) {
+      throw ServerException(e.message);
     }catch(e){
       throw ServerException('Unexpected SignUp error: ${e.toString()}');
     }
@@ -59,6 +61,8 @@ class AuthSupabaseDataSourceImple implements AuthSupabaseDataSource{
       return UserModel.fromJson(response.user!.toJson()).copyWith(
           email: currentUserSession!.user.email
       );
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     }catch (e){
       throw ServerException('Unexpected SignIn error: ${e.toString()}');
     }
