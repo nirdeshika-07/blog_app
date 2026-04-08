@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/core/network/connection_checker.dart';
-import 'package:blog_app/features/blog/data/datasources/blog_local_data_source.dart';
 import 'package:blog_app/features/blog/domain/entities/blog.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
@@ -14,11 +13,9 @@ import '../model/blog_model.dart';
 
 class BlogRepositoryImple implements BlogRepository {
   final BlogSupabaseDataSource blogSupabaseDataSource;
-  final BlogLocalDataSource blogLocalDataSource;
   final ConnectionChecker connectionChecker;
   BlogRepositoryImple(
       this.blogSupabaseDataSource,
-      this.blogLocalDataSource,
       this.connectionChecker,
       );
 
@@ -63,12 +60,7 @@ class BlogRepositoryImple implements BlogRepository {
   @override
   Future<Either<Failure, List<Blog>>> getAllBlogs() async {
     try {
-      if (!await (connectionChecker.isConnected)) {
-        final blogs = blogLocalDataSource.loadBlogs();
-        return right(blogs);
-      }
       final blogs = await blogSupabaseDataSource.getAllBlogs();
-      blogLocalDataSource.uploadLocalBlogs(blogs: blogs);
       return right(blogs);
     } on ServerException catch (e) {
       return left(Failure(e.message));

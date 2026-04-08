@@ -1,8 +1,6 @@
 import 'package:blog_app/core/reusable/cubits/blog_user/blog_user_cubit.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/network/connection_checker.dart';
@@ -14,7 +12,6 @@ import 'features/auth/domain/use_cases/current_user.dart';
 import 'features/auth/domain/use_cases/user_login.dart';
 import 'features/auth/domain/use_cases/user_signup.dart';
 import 'features/auth/presentation/bloc/blog_auth_bloc.dart';
-import 'features/blog/data/datasources/blog_local_data_source.dart';
 import 'features/blog/data/datasources/blog_supabase_data_source.dart';
 import 'features/blog/data/repositories/blog_repositories_imple.dart';
 import 'features/blog/domain/repositories/blog_repositories.dart';

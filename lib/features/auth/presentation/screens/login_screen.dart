@@ -83,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textValue: 'Sign In',
                     onPressed: (){
                       if(formKey.currentState!.validate()){
+
                         context.read<BlogAuthBloc>().add(
                             BlogAuthSignIn(
                                 email: emailController.text.trim(),

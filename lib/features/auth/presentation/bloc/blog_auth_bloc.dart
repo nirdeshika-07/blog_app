@@ -41,6 +41,15 @@ class BlogAuthBloc extends Bloc<BlogAuthEvent, BlogAuthStates>{
         name: event.name)
     );
     
+    // result.fold(
+    //         (failure) {
+    //           print('=====================${failure.message}');
+    //           emit(AuthFailure(failure.message));
+    //         },
+    //         (user) {
+    //           emit(AuthSuccess(user));
+    //         }
+    // );
     result.fold(
             (failure) => emit(AuthFailure(failure.message)),
             (user) {
@@ -56,6 +65,15 @@ class BlogAuthBloc extends Bloc<BlogAuthEvent, BlogAuthStates>{
         ),
     );
 
+    // result.fold(
+    //         (failure) {
+    //           print('=====================${failure.message}');
+    //           emit(AuthFailure(failure.message));
+    //         },
+    //         (user) {
+    //           _emitAuthSuccess(user, emit);
+    //         }
+    // );
     result.fold(
             (failure) => emit(AuthFailure(failure.message)),
             (user) {
@@ -72,6 +90,12 @@ class BlogAuthBloc extends Bloc<BlogAuthEvent, BlogAuthStates>{
               _emitAuthSuccess(user, emit);
             }
     );
+    // result.fold(
+    //         (failure) => emit(AuthFailure(failure.message)),
+    //         (user) {
+    //           _emitAuthSuccess(user, emit);
+    //         }
+    // );
    });
   }
 
