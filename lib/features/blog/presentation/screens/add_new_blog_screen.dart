@@ -16,6 +16,9 @@ import '../widgets/blog_editor.dart';
 
 
 class AddNewBlogScreen extends StatefulWidget {
+  static route() => MaterialPageRoute(
+    builder: (context) => const AddNewBlogScreen(),
+  );
   const AddNewBlogScreen({super.key});
 
   @override

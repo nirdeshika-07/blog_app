@@ -13,4 +13,9 @@ class GetAllBlogs implements UseCase<List<Blog>, NoParams> {
   Future<Either<Failure, List<Blog>>> call(NoParams params) async {
     return await blogRepository.getAllBlogs();
   }
+
 }
+// class GetAllBlogsParam{
+//   final String userId;
+//   GetAllBlogsParam(this.userId);
+// }

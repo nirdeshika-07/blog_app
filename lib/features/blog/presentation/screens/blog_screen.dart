@@ -1,5 +1,6 @@
 import 'package:blog_app/core/reusable/widgets/loading.dart';
 import 'package:blog_app/core/theme/blog_pallete.dart';
+import 'package:blog_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,7 @@ import 'add_new_blog_screen.dart';
 
 class BlogScreen extends StatefulWidget {
   static route() => MaterialPageRoute(
-      builder: (context) => const AddNewBlogScreen()
+      builder: (context) => const BlogScreen()
   );
   const BlogScreen({super.key});
 
@@ -35,10 +36,18 @@ class _BlogScreenState extends State<BlogScreen> {
         actions: [
           IconButton(
           onPressed: (){
-            Navigator.push(context, BlogScreen.route());
+            Navigator.push(context, AddNewBlogScreen.route());
           },
               icon: const Icon(
                 CupertinoIcons.add_circled
+              )
+          ),
+          IconButton(
+              onPressed: (){
+                Navigator.push(context, LoginScreen.route());
+              },
+              icon: const Icon(
+                  Icons.logout_outlined
               )
           )
         ],
@@ -72,4 +81,5 @@ class _BlogScreenState extends State<BlogScreen> {
       ),
     );
   }
+
 }

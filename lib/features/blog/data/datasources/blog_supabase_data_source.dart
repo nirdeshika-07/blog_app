@@ -38,14 +38,24 @@ class BlogSupabaseDataSourceImple implements BlogSupabaseDataSource {
     required BlogModel blog,
   }) async {
     try {
+      final fileExtension = image.path.split('.').last;
+      final fileName = '${blog.id}.$fileExtension';
       await supabaseClient.storage.from('blog_images').upload(
-        blog.id,
+        fileName,
         image,
       );
 
       return supabaseClient.storage.from('blog_images').getPublicUrl(
-        blog.id,
+        fileName,
       );
+      // await supabaseClient.storage.from('blog_images').upload(
+      //   blog.id,
+      //   image,
+      // );
+      //
+      // return supabaseClient.storage.from('blog_images').getPublicUrl(
+      //   blog.id,
+      // );
     } on StorageException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
@@ -58,6 +68,11 @@ class BlogSupabaseDataSourceImple implements BlogSupabaseDataSource {
     try {
       final blogs =
       await supabaseClient.from('blogs').select('*, profiles (name)');
+      // final buckets = await supabaseClient.storage.listBuckets();
+      // print('Available buckets:');
+      // for (var bucket in buckets) {
+      //   print('  - "${bucket.name}" (public: ${bucket.public})');
+      // }
       return blogs
           .map(
             (blog) => BlogModel.fromJson(blog).copyWith(
@@ -65,10 +80,13 @@ class BlogSupabaseDataSourceImple implements BlogSupabaseDataSource {
         ),
       )
           .toList();
+
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
   }
+
+
 }

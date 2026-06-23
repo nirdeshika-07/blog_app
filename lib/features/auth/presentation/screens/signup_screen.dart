@@ -1,6 +1,7 @@
 import 'package:blog_app/core/reusable/widgets/loading.dart';
 import 'package:blog_app/core/theme/blog_pallete.dart';
 import 'package:blog_app/core/utils/show_snackbar.dart';
+import 'package:blog_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:blog_app/features/blog/presentation/screens/blog_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -107,7 +108,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Navigator.push(context, SignupScreen.route());
+                        Navigator.push(context, LoginScreen.route());
                       },
                       child: RichText(
                         text: TextSpan(
